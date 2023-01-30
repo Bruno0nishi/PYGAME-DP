@@ -25,14 +25,20 @@ def game_screen(window):
 
 
 
-
-
-    # ===== Loop principal =====
+# ===== Loop principal =====
     while state != DONE:
         clock.tick(FPS)
         segundos = int(pygame.time.get_ticks() - last_update)
         print(segundos)
-
+        if segundos > 5000:
+            lista_imagens.empty()
+            window.fill(WHITE)
+            pygame.display.update()
+            pygame.time.wait(3000)
+            for i in range(random.randint(5,10)):
+                item = Item(dicionario_de_arquivos,"cereja")
+                lista_imagens.add(item)
+            last_update = pygame.time.get_ticks()
         # ----- Trata eventos
         for event in pygame.event.get():
             # ----- Verifica consequências
