@@ -23,41 +23,65 @@ def game_screen(window):
         item = Item(dicionario_de_arquivos,"cereja")
         lista_imagens.add(item)
 
+  
 
-
+    cont = True
+    ultima = pygame.time.get_ticks()
+    
 # ===== Loop principal =====
     while state != DONE:
         clock.tick(FPS)
         segundos = int(pygame.time.get_ticks() - last_update)
-        print(segundos)
-        #adiciona a imagem input.png no meio da tela branca por 3 segundos
-
-
-        if segundos > 5000:
-            lista_imagens.empty()
-            window.fill(WHITE)
-            window.blit(dicionario_de_arquivos["input"], (250, 275))
-            pygame.display.update()
-            pygame.time.wait(3000)
-            window.fill(WHITE)
-            pygame.display.update()
-
-            
+        #print(segundos)
+        now = pygame.time.get_ticks()
+        #Renderize o texto digitado pelo jogador sobre o input
+        if cont == True and now - ultima > 5000:
+            cont = False
+            ultima = now
+        if cont == False and now - ultima > 3000:
+            cont = True
+            ultima = now
+            lista_imagens = pygame.sprite.Group()
             for i in range(random.randint(5,10)):
                 item = Item(dicionario_de_arquivos,"cereja")
                 lista_imagens.add(item)
-            last_update = pygame.time.get_ticks()
+            
+            
+        
+        
 
 
         # ----- Trata eventos
+        
         for event in pygame.event.get():
             # ----- Verifica consequências
+            print(event)
+            texto = ""
+            
+            if event.type == pygame.KEYDOWN:
+                
+                event.unicode += texto 
+                font = pygame.font.SysFont(None,48)
+                texto1 = font.render(texto, True, BLACK)
+                window.blit(texto1, (250, 275))
+                pygame.display.update()
+
             if event.type == pygame.QUIT:
                 state = DONE
 
         # ----- Gera saídas
         window.fill(WHITE)  # Preenche com a cor branca
-        lista_imagens.draw(window)
+        if cont == True:
+            lista_imagens.draw(window)
+        else:
+            window.blit(dicionario_de_arquivos["input"], (250, 275))
+            text = dicionario_de_arquivos['font'].render(f'test',True,BLACK)
+            teste= text.get_rect()
+            teste.x = 400
+            teste.y = 320
+            window.blit(text,teste)
+            
+
         pygame.display.update()  # Mostra o novo frame para o jogador
 
     return state
