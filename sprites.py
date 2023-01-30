@@ -1,17 +1,23 @@
 import pygame
+import random
+from os import path
+from config import IMG_DIR, BLACK, FPS, GAME, QUIT, WIDTH, HEIGHT, WHITE
+
+
 
 class Item(pygame.sprite.Sprite):
-    def __init__(self, dicionario_de_arquivos):
+    def __init__(self, dicionario_de_arquivos,nome_items):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
         
-        self.image = 
+        self.image = dicionario_de_arquivos[nome_items]
+        self.image = pygame.transform.scale(self.image, (60,60))
         #todo objeto precisa de um rect
         # rect é a representação de retangulo feita pelo pygame
         self.rect = self.image.get_rect()
         # é preciso definir onde a imagem deve aparecer no jogo
-        self.rect.x = # defina um x
-        self.rect.y = # defina um y
+        self.rect.x = random.randint(0, WIDTH - self.rect.width)
+        self.rect.y = random.randint(0, HEIGHT - self.rect.height)
 
 class Botao(pygame.sprite.Sprite):
     def __init__(self, assets, nome_do_jogo):
