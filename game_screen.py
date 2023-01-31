@@ -23,12 +23,14 @@ def game_screen(window):
         item = Item(dicionario_de_arquivos,"cereja")
         lista_imagens.add(item)
 
-  
+    item_sort = 'cereja'
 
     cont = True
     ultima = pygame.time.get_ticks()
     texto = ''
     qnt = 1
+    erro = 0
+    pontuacao = 0
 # ===== Loop principal =====
     while state != DONE:
         clock.tick(FPS)
@@ -48,13 +50,26 @@ def game_screen(window):
             sort = random.sample(lista,k=qnt)
             for j in sort:
                 item_sort = random.choice(sort)
-                print(item_sort)
                 quantos = (random.randint(5,10))
                 for i in range(quantos):
                     print(quantos)
                     item = Item(dicionario_de_arquivos,j)
                     lista_imagens.add(item)
-              
+            
+            
+            if erro >= 3:
+                DONE
+            
+            
+            if str(quantos) == texto:
+                pontuacao += 1
+                print("acertou")
+                
+            else:
+                erro += 1 
+                print("errou")   
+                      
+
             
             
         
@@ -93,6 +108,13 @@ def game_screen(window):
             teste.x = 400
             teste.y = 320
             window.blit(text,teste)
+
+            txt= dicionario_de_arquivos['font'].render("Quantos",True,BLACK)
+            window.blit(pygame.transform.scale(dicionario_de_arquivos[item_sort],(40,45)),(505,225))
+            test= text.get_rect()
+            test.x = 330
+            test.y = 245
+            window.blit(txt,test)
 
             
 
