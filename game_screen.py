@@ -63,10 +63,12 @@ def game_screen(window):
             
             if str(quantos) == texto:
                 pontuacao += 1
+                dicionario_de_arquivos['success_sound'].play()
                 print("acertou")
                 
             else:
                 erro += 1 
+                dicionario_de_arquivos['fail_sound'].play()
                 print("errou")   
                       
 
@@ -115,6 +117,9 @@ def game_screen(window):
             test.x = 330
             test.y = 245
             window.blit(txt,test)
+
+
+
 
             
 
