@@ -56,7 +56,7 @@ def game_screen(window):
         for event in pygame.event.get():
             # ----- Verifica consequências
             print(event)
-            texto = ""
+            """texto = ""
             
             if event.type == pygame.KEYDOWN:
                 
@@ -64,7 +64,7 @@ def game_screen(window):
                 font = pygame.font.SysFont(None,48)
                 texto1 = font.render(texto, True, BLACK)
                 window.blit(texto1, (250, 275))
-                pygame.display.update()
+                """
 
             if event.type == pygame.QUIT:
                 state = DONE
@@ -74,8 +74,8 @@ def game_screen(window):
         if cont == True:
             lista_imagens.draw(window)
         else:
-            window.blit(dicionario_de_arquivos["input"], (250, 275))
-            text = dicionario_de_arquivos['font'].render(f'test',True,BLACK)
+            window.blit(dicionario_de_arquivos["input"], (200, 275))
+            text = dicionario_de_arquivos['font'].render(event.unicode,True,BLACK)
             teste= text.get_rect()
             teste.x = 400
             teste.y = 320
