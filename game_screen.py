@@ -27,7 +27,8 @@ def game_screen(window):
 
     cont = True
     ultima = pygame.time.get_ticks()
-    
+    texto = ''
+    qnt = 1
 # ===== Loop principal =====
     while state != DONE:
         clock.tick(FPS)
@@ -38,13 +39,22 @@ def game_screen(window):
         if cont == True and now - ultima > 5000:
             cont = False
             ultima = now
+            qnt+=1
         if cont == False and now - ultima > 3000:
             cont = True
             ultima = now
             lista_imagens = pygame.sprite.Group()
-            for i in range(random.randint(5,10)):
-                item = Item(dicionario_de_arquivos,"cereja")
-                lista_imagens.add(item)
+            lista = ['cereja','flor','arvore-fruta','joaninha','arvore']
+            sort = random.sample(lista,k=qnt)
+            for j in sort:
+                item_sort = random.choice(sort)
+                print(item_sort)
+                quantos = (random.randint(5,10))
+                for i in range(quantos):
+                    print(quantos)
+                    item = Item(dicionario_de_arquivos,j)
+                    lista_imagens.add(item)
+              
             
             
         
@@ -56,30 +66,34 @@ def game_screen(window):
         for event in pygame.event.get():
             # ----- Verifica consequências
             print(event)
-            """texto = ""
             
             if event.type == pygame.KEYDOWN:
                 
-                event.unicode += texto 
-                font = pygame.font.SysFont(None,48)
-                texto1 = font.render(texto, True, BLACK)
-                window.blit(texto1, (250, 275))
-                """
+                texto +=  event.unicode 
+                
 
             if event.type == pygame.QUIT:
                 state = DONE
+            
+        
 
+            
+            
+
+        
         # ----- Gera saídas
         window.fill(WHITE)  # Preenche com a cor branca
         if cont == True:
             lista_imagens.draw(window)
+            texto = ''
         else:
             window.blit(dicionario_de_arquivos["input"], (200, 275))
-            text = dicionario_de_arquivos['font'].render(event.unicode,True,BLACK)
+            text = dicionario_de_arquivos['font'].render(texto,True,BLACK)
             teste= text.get_rect()
             teste.x = 400
             teste.y = 320
             window.blit(text,teste)
+
             
 
         pygame.display.update()  # Mostra o novo frame para o jogador
